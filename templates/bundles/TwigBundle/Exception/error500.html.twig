@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ "errors.title"|trans }}
+{% endblock %}
+
+{% block body %}
+    {% import "helper/error_helper.html.twig" as macro %}
+    {{ macro.renderErrorPage(status_code, status_text, 'errors.details.500'|trans) }}
+{% endblock %}

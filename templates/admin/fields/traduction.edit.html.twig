@@ -1,0 +1,14 @@
+{% extends '@!EasyAdmin/crud/edit.html.twig' %}
+
+{% block body_javascript %}
+    {{ parent() }}
+
+    {% if not (edit_form.vars.value.key starts with 'ck_') and not (edit_form.vars.value.key starts with 'CK_') %}
+        <script type="application/javascript">
+            for (name in CKEDITOR.instances) {
+                CKEDITOR.instances[name].destroy(true);
+            }
+            $('[id*=translation]').width('100%');
+        </script>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,18 @@
+<div class="langs-container ml-2">
+    {% set route = app.request.attributes.get('_route') %}
+    {% set route_params = app.request.attributes.get('_route_params') %}
+
+    {% if route is defined and route_params is defined and route_params is iterable %}
+
+        {% set params = route_params|merge(app.request.query.all) %}
+
+{#  {% set applocales=app_locales|split('|') %}
+        {% for locale in applocales %}
+            <a class="locale-link {{ app.request.locale == locale ? 'locale-current' : '' }}"
+               href="{{ path(route, params|merge({ _locale: locale })) }}">{{ locale|upper }}</a>
+            {% if loop.index < locale|length + 1 %}|{% endif %}
+        {% endfor %}#}
+        EN / FR
+
+    {% endif %}
+</div>

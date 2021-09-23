@@ -1,0 +1,11 @@
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+  ADMIN_PATH: 'admin'
+  APP_ENV: '%env(APP_ENV)%'
+  locale: fr
+  app_locales: fr|en
+  locales: [ fr, en, key ]
+  db_i18n.entity: App\Entity\Traduction
+  doctrine_behaviors_translatable_fetch_mode: "LAZY"
+  doctrine_behaviors_translation_fetch_mode: "LAZY"

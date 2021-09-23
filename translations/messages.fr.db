@@ -1,0 +1,98 @@
+site.name: Relations
+Dashboard: Tableau de bord
+
+locale.chooser.fr: FR
+locale.chooser.en: EN
+locale.chooser.de: DE
+locale.chooser.it: IT
+
+admin.menu.logs: Logs
+admin.menu.logs.action: Actions
+admin.menu.logs.exception: Exceptions
+admin.menu.user: Utilisateurs
+admin.menu.param: Paramètres
+admin.menu.multi_langues: Internationalisation
+admin.menu.traduction: Traductions
+admin.menu.langues: Langues
+
+admin.section.config: Configuration
+admin.section.history: Historique
+
+entity.createdAt: Créé le
+entity.updatedAt: Modifié le
+entity.createdBy: Créé par
+entity.updatedBy: Modifié par
+entity.editedBy: Modifié par
+entity.enable: Activé
+
+parametre: Paramètre
+parametres: Paramètres
+param.cle: Clé
+param.valeur: Valeur
+param.description: Description
+param.date_fin_validite: Fin de validité
+
+traduction: Traduction
+traductions: Traductions
+traduction.key: Clé
+traduction.locale: Locale
+traduction.domain: Domaine
+traduction.translation: Traduction
+"[Default]": "[Défaut]"
+
+langue: Langue
+langues: Langues
+langue.code: Code
+langue.langue: Langue
+
+actionLog: Log d'action
+actionLogs: Log d'actions
+actionLog.method: Méthode
+actionLog.uri: Uri
+actionLog.ip: IP
+actionLog.request_at: Date de la requête
+actionLog.responseCode: Code de la réponse
+actionLog.user: Utilisateur
+
+exceptionLog: Log d'erreur
+exceptionLogs: Log d'erreurs
+exceptionLog.method: Méthode
+exceptionLog.uri: Uri
+exceptionLog.ip: IP
+exceptionLog.exceptionMessage: Message d'erreur
+exceptionLog.exceptionCode: Code d'erreur
+exceptionLog.request_at: Date de la requête
+exceptionLog.user: Utilisateur
+
+errors.title: "Page introuvable"
+errors.details.403: "Nous sommes désolé, mais vous n'avez pas le droit d'accéder à cette page."
+errors.details.404: "Désolé, la page que vous recherchez n'existe pas."
+errors.details.500: "Une erreur s'est produite. S'il vous plaît, veuillez réessayez plus tard."
+
+menu.user.profile: Mon profil
+action.update: Mettre à jour
+password.not_same: Les mot de passes doivent correspondre.
+page.mon_profil.title: Mon profil
+page.mon_profil.mes_informations: Mes informations
+user.action.changePassword: Modifier le mot de passe
+password.new: Nouveau mot de passe
+password.new.confirm: Confirmation du mot de passe
+
+user: Utilisateur
+users: Utilisateurs
+user.username: Pseudonyme
+user.nom: Nom
+user.prenom: Prénom
+user.email: Email
+user.roles: Rôles
+user.derniereConnexion: Dernière connexion
+user.role.role_panel_admin: Panel admin
+user.role.role_admin: Admin
+user.role.role_entreprise_informatique: Entreprise informatique
+
+form.label.delete: Supprimer
+action.clear.cache: Vider le cache
+action.back: Retour
+action.close: Fermer
+action.choisir: Choisir
+action.upload: Uploader

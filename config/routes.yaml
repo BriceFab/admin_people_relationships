@@ -1,0 +1,12 @@
+index:
+  path: /
+  controller: App\Controller\HomeController::index
+
+admin_no_locale:
+  path: '/%ADMIN_PATH%'
+  controller: App\Controller\Admin\DashboardController::index
+
+artgris_bundle_file_manager:
+  resource: "@ArtgrisFileManagerBundle/Controller"
+  type: annotation
+  prefix: '/{_locale}/%ADMIN_PATH%/file_manager'

@@ -1,0 +1,32 @@
+{% macro renderErrorPage(status_code, status_text, error_detail = null, exception = null) %}
+    <div class="d-flex align-items-center justify-content-center" style="height: 100vh;">
+        <div class="text-center">
+            <h2 class="text-error mx-4" data-text="{{ status_code }}">
+                {{ status_code }}
+            </h2>
+
+            <h4 data-text="Oups! Page {{ status_text }}">
+                Oups! Page {{ status_text }}
+            </h4>
+
+            <div class="mx-2">
+                {% if error_detail %}
+                    <p>
+                        {{ error_detail }}
+                    </p>
+                {% endif %}
+                {% if exception and exception.message is defined %}
+                    <code>
+                        {{ exception.message }}
+                    </code>
+                {% endif %}
+            </div>
+
+            <div class="btns mx-auto">
+                <a href="{{ path('home') }}" class="btn btn-primary">
+                    {{ "action.back"|trans }}
+                </a>
+            </div>
+        </div>
+    </div>
+{% endmacro %}

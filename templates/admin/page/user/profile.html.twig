@@ -1,0 +1,47 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+
+{% block content_title %}
+    {{ "page.mon_profil.title"|trans }}
+{% endblock %}
+
+{% block main %}
+    <div class="accordion" id="accordionUser">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button bg-primary text-white" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                    {# Mes informations #}
+                    {{ "page.mon_profil.mes_informations"|trans }}
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                 data-bs-parent="#accordionUser">
+                <div class="accordion-body bg-white">
+                    {# Contenu #}
+                    {{ form(profilForm) }}
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed bg-primary text-white" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    {# Mot de passe #}
+                    {{ "user.action.changePassword"|trans }}
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                 data-bs-parent="#accordionUser">
+                <div class="accordion-body bg-white">
+                    {# Contenu #}
+                    {{ form_start(passwordForm) }}
+                    <div>
+                        {{ form_row(passwordForm.password) }}
+                    </div>
+                    {{ form_end(passwordForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

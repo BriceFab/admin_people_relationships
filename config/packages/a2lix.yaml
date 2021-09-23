@@ -1,0 +1,5 @@
+a2lix_translation_form:
+  locale_provider: default
+  locales: [ fr, en ]
+  default_locale: '%locale%'
+  required_locales: [ '%locale%' ]

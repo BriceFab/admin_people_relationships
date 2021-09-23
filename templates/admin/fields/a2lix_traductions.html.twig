@@ -1,0 +1,106 @@
+{% set traductions = field.value %}
+
+{% set fields_not_display = ['id', 'locale'] %}
+
+{% if ea.crud.currentAction == 'detail' %}
+    {# Si page détail #}
+    {% if traductions|length > 0 %}
+
+        {% set tabId = 'translationsTab_' ~ random() %}
+        {% set tabs = [] %}
+        {% set tabContents = [] %}
+
+        <div class="a2lix_translations">
+            {% for locale, traduction in traductions %}
+                {% set current_tab = {
+                    key: locale ~ '_' ~ random(),
+                    locale: locale
+                } %}
+
+                {% set current_tabContent = {
+                    tab: current_tab,
+                    entity: traduction,
+                    fields: traduction|class_fields
+                } %}
+
+                {% set tabs = tabs|merge([current_tab]) %}
+                {% set tabContents = tabContents|merge([current_tabContent]) %}
+            {% endfor %}
+        </div>
+
+        <ul class="nav nav-tabs" id="{{ tabId }}" role="tablist">
+            {% for tab in tabs %}
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link {% if app.request.locale == tab.locale %}active{% endif %}"
+                       id="{{ tab.key }}-tab"
+                       data-bs-toggle="tab" href="#{{ tab.key }}"
+                       role="tab" aria-controls="{{ tab.key }}"
+                       aria-selected="{{ loop.index == 1 ? "true" : "false" }}">
+                        {{ ("locale.chooser." ~ tab.locale|lower)|trans }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="tab-content" id="{{ tabId }}">
+            {% for tabContent in tabContents %}
+                <div class="tab-pane fade {% if app.request.locale == tabContent.tab.locale %}show active{% endif %}"
+                     id="{{ tabContent.tab.key }}" role="tabpanel" aria-labelledby="{{ tabContent.tab.key }}-tab">
+
+                    <div class="container-fluid">
+                        {% for tabField in tabContent.fields|filter(field => field not in fields_not_display) %}
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    {{ (get_classname(tabContent.entity) ~ "." ~ tabField)|lower|trans }}:
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    {# TODO trouver une façon d'avoir le bon template (bool, ...) || ou le passer en config côté EA #}
+                                    {% set customTemplatePath = null %}
+                                    {{ _self.renderFieldValue(field, tabContent.entity, tabContent.entity|entity_access_property(tabField), customTemplatePath) }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        {% include "@EasyAdmin/label/null.html.twig" %}
+    {% endif %}
+
+{% else %}
+    {# Si page Index #}
+
+    {% set entity_translation = traductions[app.request.locale] ?? traductions.first %}
+    {% set entity = entity.instance %}
+
+    {# Si aucune traduction #}
+    {% if entity_translation == false %}
+        {% include "@EasyAdmin/label/null.html.twig" %}
+    {% else %}
+        {% set customProperty = field.customOptions.get('property') %}
+        {% set customTemplatePath = field.customOptions.get('templatePath') %}
+        {% set value = null %}
+
+        {% if customProperty or false %}
+            {% set value = entity_translation|entity_access_property(customProperty) %}
+        {% else %}
+            {% set value = entity_translation %}
+        {% endif %}
+
+        {{ _self.renderFieldValue(field, entity, value, customTemplatePath) }}
+    {% endif %}
+{% endif %}
+
+{% macro renderFieldValue(field, entity, value, customTemplatePath = '@EasyAdmin/crud/field/text.html.twig') %}
+    {% if customTemplatePath is null %}
+        {% set customTemplatePath = '@EasyAdmin/crud/field/text.html.twig' %}
+    {% endif %}
+
+    {% set templateField = field %}
+    {{ templateField.setValue(value) }}
+    {{ templateField.setFormattedValue(value) }}
+    {% set templateEntity = entity %}
+
+    {{ include(customTemplatePath, { field: templateField, entity: templateEntity }, with_context = false) }}
+{% endmacro %}

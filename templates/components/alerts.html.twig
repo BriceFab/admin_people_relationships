@@ -1,0 +1,14 @@
+<div>
+    {% for label, messages in app.flashes(['warning', 'error', 'notice', 'info', 'success']) %}
+        {% for message in messages %}
+            {% set alert_type = 'success' %}
+            {% if label in ['warning', 'error'] %}
+                {% set alert_type = 'danger' %}
+            {% endif %}
+
+            <div class="alert alert-{{ alert_type }}" role="alert">
+                {{ message|trans }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>

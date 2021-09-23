@@ -1,0 +1,40 @@
+doctrine:
+  dbal:
+    url: '%env(resolve:DATABASE_URL)%'
+
+    # IMPORTANT: You MUST configure your server version,
+    # either here or in the DATABASE_URL env var (see .env file)
+    #server_version: '13'
+  orm:
+    auto_generate_proxy_classes: true
+    naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+    auto_mapping: true
+    dql:
+      string_functions:
+        regexp: DoctrineExtensions\Query\Mysql\Regexp
+        IF: DoctrineExtensions\Query\Mysql\IfElse
+        DATEDIFF: DoctrineExtensions\Query\Mysql\DateDiff
+        DATE_ADD: DoctrineExtensions\Query\Mysql\DateAdd
+        DATE_SUB: DoctrineExtensions\Query\Mysql\DateSub
+        NOW: DoctrineExtensions\Query\Mysql\Now
+        TIMESTAMPDIFF: DoctrineExtensions\Query\Mysql\TimestampDiff
+        SPLIT_STRING: App\Query\Mysql\SplitString
+      datetime_functions:
+        date_format: DoctrineExtensions\Query\Mysql\DateFormat
+    filters:
+      softdeleteable:
+        class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+        enabled: true
+    mappings:
+      App:
+        is_bundle: false
+        type: annotation
+        dir: '%kernel.project_dir%/src/Entity'
+        prefix: 'App\Entity'
+        alias: App
+      gedmo_loggable:
+        type: annotation
+        prefix: Gedmo\Loggable\Entity
+        dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/src/Loggable/Entity"
+        alias: GedmoLoggable # (optional) it will default to the name set for the mapping
+        is_bundle: false
