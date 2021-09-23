@@ -1,33 +1,32 @@
 <?php
 
-namespace App\Form\Admin\User;
+namespace App\Form;
 
-use App\Entity\User;
+use App\Entity\Note;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserProfilForm extends AbstractType
+class NoteType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("username", EmailType::class, [
-                "required" => true,
-                "label" => "Username"
+            ->add("type", TextType::class, [
+                "label" => "Type",
             ])
-            ->add("submit", SubmitType::class, [
-                "label" => "action.update",
+            ->add("description", TextareaType::class, [
+                "label" => "Description",
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            "class" => User::class
+            "data_class" => Note::class,
         ]);
     }
 

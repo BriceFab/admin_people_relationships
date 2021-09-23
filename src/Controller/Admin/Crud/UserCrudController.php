@@ -3,11 +3,10 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Classes\Enum\EnumRoles;
+use App\Config\ConstraintsConfig;
 use App\Controller\Admin\Crud\Common\BaseCrudController;
 use App\Entity\User;
-use App\Form\Fields\Admin\TelephonePortableField;
 use App\Helper\SecurityHelper;
-use ConstraintsConfig;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -59,12 +58,6 @@ class UserCrudController extends BaseCrudController
 
         return [
             TextField::new('username', 'user.username')
-                ->setRequired(true),
-            TextField::new('nom', 'user.nom')
-                ->setRequired(false),
-            TextField::new('prenom', 'user.prenom')
-                ->setRequired(false),
-            EmailField::new('email', 'user.email')
                 ->setRequired(true),
             TextField::new('password', 'user.password')
                 ->setFormType(RepeatedType::class)

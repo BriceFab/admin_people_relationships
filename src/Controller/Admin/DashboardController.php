@@ -5,16 +5,14 @@ namespace App\Controller\Admin;
 use App\Classes\Enum\EnumRoles;
 use App\Controller\Admin\Crud\ActionLogCrudController;
 use App\Controller\Admin\Crud\ExceptionLogCrudController;
-use App\Controller\Admin\Crud\ImageCrudController;
 use App\Controller\Admin\Crud\LangueCrudController;
-use App\Controller\Admin\Crud\LocationCrudController;
 use App\Controller\Admin\Crud\ParametreCrudController;
-use App\Controller\Admin\Crud\PaysCrudController;
-use App\Controller\Admin\Crud\RegionCrudController;
-use App\Controller\Admin\Crud\ServiceCrudController;
+use App\Controller\Admin\Crud\PersonneCrudController;
 use App\Controller\Admin\Crud\TraductionCrudController;
+use App\Controller\Admin\Crud\Types\AdresseTypeCrudController;
+use App\Controller\Admin\Crud\Types\PersonneTypeCrudController;
+use App\Controller\Admin\Crud\Types\TelephoneTypeCrudController;
 use App\Controller\Admin\Crud\UserCrudController;
-use App\Controller\Admin\Crud\VilleCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -22,11 +20,17 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * Class DashboardController
+ * @package App\Controller\Admin
+ * @IsGranted("ROLE_ADMIN")
+ */
 class DashboardController extends AbstractDashboardController
 {
     private TranslatorInterface $translator;
@@ -55,6 +59,18 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
+
+        if ($this->isGranted(EnumRoles::ROLE_ADMIN)) {
+            yield MenuItem::section('Enquêtes');
+
+            yield MenuItem::linkToCrud('Personnes', 'fa fa-user', PersonneCrudController::getEntityFqcn());
+
+            yield MenuItem::section('Types');
+
+            yield MenuItem::linkToCrud('Type de personne', 'fa fa-user', PersonneTypeCrudController::getEntityFqcn());
+            yield MenuItem::linkToCrud('Type de téléphone', 'fa fa-user', TelephoneTypeCrudController::getEntityFqcn());
+            yield MenuItem::linkToCrud("Type d'adresse", 'fa fa-user', AdresseTypeCrudController::getEntityFqcn());
+        }
 
         if ($this->isGranted(EnumRoles::ROLE_DEV)) {
             yield MenuItem::section('admin.section.config');

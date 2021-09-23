@@ -88,7 +88,7 @@ user.roles: Rôles
 user.derniereConnexion: Dernière connexion
 user.role.role_panel_admin: Panel admin
 user.role.role_admin: Admin
-user.role.role_entreprise_informatique: Entreprise informatique
+user.role.role_dev: Développeur
 
 form.label.delete: Supprimer
 action.clear.cache: Vider le cache

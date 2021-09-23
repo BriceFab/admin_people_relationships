@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Config;
+
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
