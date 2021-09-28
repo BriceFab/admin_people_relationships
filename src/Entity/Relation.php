@@ -2,22 +2,22 @@
 
 namespace App\Entity;
 
+use App\Entity\Common\IdTrait;
 use App\Repository\RelationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass=RelationRepository::class)
  */
 class Relation
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use IdTrait;
+    use BlameableEntity;
+    use TimestampableEntity;
 
     /**
      * @ORM\ManyToOne(targetEntity=RelationType::class, inversedBy="relations")
@@ -43,11 +43,6 @@ class Relation
     {
         $this->notes = new ArrayCollection();
         $this->personnes = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getType(): ?RelationType

@@ -2,22 +2,22 @@
 
 namespace App\Entity;
 
+use App\Entity\Common\IdTrait;
 use App\Repository\AdresseTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass=AdresseTypeRepository::class)
  */
 class AdresseType
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use IdTrait;
+    use BlameableEntity;
+    use TimestampableEntity;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -32,11 +32,6 @@ class AdresseType
     public function __construct()
     {
         $this->adresses = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getNom(): ?string

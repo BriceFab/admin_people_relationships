@@ -2,20 +2,20 @@
 
 namespace App\Entity;
 
+use App\Entity\Common\IdTrait;
 use App\Repository\NoteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass=NoteRepository::class)
  */
 class Note
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use IdTrait;
+    use BlameableEntity;
+    use TimestampableEntity;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -36,11 +36,6 @@ class Note
      * @ORM\ManyToOne(targetEntity=Relation::class, inversedBy="notes")
      */
     private $relation;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getType(): ?string
     {

@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Classes\Enum\EnumRoles;
 use App\Controller\Admin\Crud\ActionLogCrudController;
 use App\Controller\Admin\Crud\ExceptionLogCrudController;
+use App\Controller\Admin\Crud\ImageCrudController;
 use App\Controller\Admin\Crud\LangueCrudController;
 use App\Controller\Admin\Crud\ParametreCrudController;
 use App\Controller\Admin\Crud\PersonneCrudController;
@@ -67,9 +68,17 @@ class DashboardController extends AbstractDashboardController
 
             yield MenuItem::section('Types');
 
-            yield MenuItem::linkToCrud('Type de personne', 'fa fa-user', PersonneTypeCrudController::getEntityFqcn());
-            yield MenuItem::linkToCrud('Type de téléphone', 'fa fa-user', TelephoneTypeCrudController::getEntityFqcn());
-            yield MenuItem::linkToCrud("Type d'adresse", 'fa fa-user', AdresseTypeCrudController::getEntityFqcn());
+            yield MenuItem::linkToCrud('Type de personne', 'fas fa-address-card', PersonneTypeCrudController::getEntityFqcn());
+            yield MenuItem::linkToCrud('Type de téléphone', 'fa fa-phone', TelephoneTypeCrudController::getEntityFqcn());
+            yield MenuItem::linkToCrud("Type d'adresse", 'fas fa-city', AdresseTypeCrudController::getEntityFqcn());
+        }
+
+        if ($this->isGranted(EnumRoles::ROLE_ADMIN)) {
+            yield MenuItem::section('admin.section.file');
+
+            yield MenuItem::linkToCrud('admin.menu.image', 'fa fa-picture-o', ImageCrudController::getEntityFqcn());
+            yield MenuItem::linkToUrl('admin.menu.file', 'fa fa-file', $this->getParameter('ADMIN_PATH') . '/file_manager?conf=default')
+                ->setLinkTarget('blank');
         }
 
         if ($this->isGranted(EnumRoles::ROLE_DEV)) {

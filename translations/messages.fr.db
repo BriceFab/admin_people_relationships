@@ -96,3 +96,17 @@ action.back: Retour
 action.close: Fermer
 action.choisir: Choisir
 action.upload: Uploader
+
+admin.section.file: Fichiers
+admin.menu.image: Images
+admin.menu.file: Fichiers
+image: Image
+images: Images
+image.file: Fichier
+image.description: Description
+image.size: Taille
+image.mimeType: Type
+image.originalName: Nom d'origine
+image.dimensions: Dimensions
+image.action.choose: Choisir dans la galerie
+image.choose.none: Aucune image choisie

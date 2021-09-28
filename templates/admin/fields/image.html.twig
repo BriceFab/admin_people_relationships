@@ -1,0 +1,10 @@
+{% set url = vich_uploader_asset(field.value, 'imageFile') %}
+
+{% set html_id = 'ea-lightbox-' ~ random() %}
+<a href="#" class="ea-lightbox-thumbnail" data-ea-lightbox-content-selector="#{{ html_id }}">
+    <img src="{{ url }}" class="img-fluid" alt="Image">
+</a>
+
+<div id="{{ html_id }}" class="ea-lightbox">
+    <img src="{{ url }}" alt="Image">
+</div>

@@ -12,7 +12,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 /**
  * @ORM\Entity(repositoryClass=TraductionRepository::class)
  */
-class Traduction
+class Traduction implements EntityInterface
 {
     use IdTrait;
     use BlameableEntity;

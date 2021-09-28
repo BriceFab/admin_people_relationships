@@ -2,22 +2,26 @@
 
 namespace App\Entity;
 
+use App\Entity\Common\IdTrait;
 use App\Repository\PersonneRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass=PersonneRepository::class)
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=true, hardDelete=true)
  */
 class Personne
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use IdTrait;
+    use BlameableEntity;
+    use TimestampableEntity;
+    use SoftDeleteableEntity;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -59,6 +63,11 @@ class Personne
      */
     private $relations;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Image::class, cascade={"persist", "remove"})
+     */
+    private $photo_profil;
+
     public function __construct()
     {
         $this->telephones = new ArrayCollection();
@@ -66,11 +75,6 @@ class Personne
         $this->notes = new ArrayCollection();
         $this->type = new ArrayCollection();
         $this->relations = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getNom(): ?string
@@ -236,6 +240,18 @@ class Personne
     public function removeRelation(Relation $relation): self
     {
         $this->relations->removeElement($relation);
+
+        return $this;
+    }
+
+    public function getPhotoProfil(): ?Image
+    {
+        return $this->photo_profil;
+    }
+
+    public function setPhotoProfil(?Image $photo_profil): self
+    {
+        $this->photo_profil = $photo_profil;
 
         return $this;
     }
