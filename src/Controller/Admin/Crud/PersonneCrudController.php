@@ -76,8 +76,8 @@ class PersonneCrudController extends AbstractCrudController
                 ->hideOnIndex(),
             CollectionField::new("relations", "Relations")
                 ->setEntryType(RelationType::class)
-                ->setColumns("col-12")
-                ->hideOnIndex(),
+                ->setTemplatePath('admin/fields/relations.html.twig')
+                ->setColumns("col-12"),
             CollectionField::new("notes", "Notes")
                 ->setEntryType(NoteType::class)
                 ->setColumns("col-12")

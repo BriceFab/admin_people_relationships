@@ -1,0 +1,7 @@
+{% if ea.crud.currentAction == 'detail' %}
+    {% for item in field.value %}
+        {{ item }}{{ loop.index < field.value.count ? ',' : '' }}
+    {% endfor %}
+{% else %}
+    {{ field.value.count ?? 0 }}
+{% endif %}
