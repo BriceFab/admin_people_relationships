@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin\Crud;
 
+use App\Controller\Admin\Crud\Common\BaseCrudController;
 use App\Entity\Personne;
 use App\Form\Admin\ImageType;
 use App\Form\AdresseType;
@@ -12,14 +13,13 @@ use App\Form\TelephoneType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class PersonneCrudController extends AbstractCrudController
+class PersonneCrudController extends BaseCrudController
 {
     public static function getEntityFqcn(): string
     {
@@ -50,7 +50,7 @@ class PersonneCrudController extends AbstractCrudController
     {
         $renderCollapse = ($pageName === Crud::PAGE_EDIT);
 
-        return [
+        return array_merge([
             FormField::addPanel('Photo')
                 ->collapsible()->renderCollapsed($renderCollapse)->hideOnIndex(),
             ImageTypeField::new('photo_profil', 'Photo de profil')
@@ -93,6 +93,6 @@ class PersonneCrudController extends AbstractCrudController
                 ->setEntryType(AdresseType::class)
                 ->setColumns("col-12")
                 ->hideOnIndex(),
-        ];
+        ], $this->getBlameableTimestampableFields());
     }
 }
