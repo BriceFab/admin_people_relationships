@@ -121,6 +121,6 @@ class Image
 
     public function __toString(): string
     {
-        return ' Image #' . $this->getId();
+        return $this->getUrl();
     }
 }

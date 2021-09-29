@@ -26,15 +26,14 @@ class AdresseType extends AbstractType
             ->add("pays", CountryType::class, [
                 "label" => "Pays",
                 "preferred_choices" => ["CH"],
-                "required" => false,
+                "required" => true,
             ])
             ->add("npa", TextType::class, [
                 "label" => "Npa",
             ])
             ->add("lieu", TextType::class, [
                 "label" => "Lieu",
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

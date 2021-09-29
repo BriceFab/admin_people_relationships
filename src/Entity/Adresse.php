@@ -143,6 +143,8 @@ class Adresse
 
     public function __toString(): ?string
     {
-        return $this->getLieu() ?? $this->getAdresse() ?? $this->getNpa() ?? $this->getPays();
+        $lieu = ($this->getLieu() . (!empty($this->getNpa()) ? ' ' . $this->getNpa() : ''));
+
+        return $this->getAdresse() ?? $lieu ?? $this->getPays();
     }
 }

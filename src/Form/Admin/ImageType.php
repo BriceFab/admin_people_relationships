@@ -6,14 +6,16 @@ use App\Entity\Image;
 use App\Repository\ImageRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ImageType extends AbstractType
 {
     private ImageRepository $imageRepository;
+    private bool $canChooseInGallery = false;
 
     public function __construct(ImageRepository $imageRepository)
     {
@@ -24,7 +26,7 @@ class ImageType extends AbstractType
     {
         $builder
             ->add("url", ImageChooserType::class, [
-                "label" => "action.choisir",
+                "label" => $this->canChooseInGallery ? "action.choisir" : false,
             ])
             ->add("imageFile", VichImageType::class, [
                 "label" => "action.upload",
@@ -33,7 +35,7 @@ class ImageType extends AbstractType
 
         $builder
             ->addModelTransformer(new CallbackTransformer(
-                //transform
+            //transform
                 function ($value) {
                     return $value;
                 },
@@ -55,6 +57,11 @@ class ImageType extends AbstractType
                     return $value;
                 }
             ));
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['canChooseInGallery'] = $this->canChooseInGallery;
     }
 
     public function configureOptions(OptionsResolver $resolver)
