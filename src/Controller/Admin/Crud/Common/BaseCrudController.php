@@ -14,7 +14,8 @@ abstract class BaseCrudController extends AbstractCrudController
     {
         return [
             FormField::addPanel('Informations systèmes')
-                ->collapsible()->renderCollapsed(false),
+                ->collapsible()->renderCollapsed(false)
+                ->onlyOnDetail(),
             TextField::new('createdBy', 'entity.createdBy')
                 ->onlyOnDetail(),
             DateTimeField::new('createdAt', 'entity.createdAt')

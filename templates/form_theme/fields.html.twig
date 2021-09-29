@@ -53,5 +53,10 @@
                 </div>
             </div>
         </div>
+    {% else %}
+        <div class="d-none">
+            {# Pour pas que l'image se supprime #}
+            {{- block('form_widget') -}}
+        </div>
     {% endif %}
 {% endblock %}

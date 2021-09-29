@@ -26,7 +26,7 @@ class ImageType extends AbstractType
     {
         $builder
             ->add("url", ImageChooserType::class, [
-                "label" => $this->canChooseInGallery ? "action.choisir" : false,
+                "label" => false,
             ])
             ->add("imageFile", VichImageType::class, [
                 "label" => "action.upload",
